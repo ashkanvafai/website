@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAFAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Artful Dodger Italic';
+            src: url('Fonts/ArtfulDodgerItalic/font.woff2') format('woff2'),
+                 url('Fonts/ArtfulDodgerItalic/font.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Artful Dodger Italic', sans-serif;
+        }
+        .container {
+            min-height: 100vh;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: start;
+            padding: 40px 50px 30px 50px;
+            z-index: 10;
+        }
+        nav {
+            justify-self: start;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: block;
+            margin-bottom: 10px;
+        }
+        nav ul li a, .cart a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover, .cart a:hover {
+            color: #4c0121;
+        }
+        h1 {
+            margin: 0;
+            font-size: 16px;
+            text-align: center;
+            grid-column: 2;
+            width: 100%;
+            font-weight: 500;
+            margin-left: -2px;
+        }
+        h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+        h1 a:hover {
+            color: #4c0121;
+        }
+        .cart {
+            justify-self: end;
+            font-weight: 400;
+        }
+        .video-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+        .video-container {
+            width: 60vmin;
+            height: 60vmin;
+            max-width: 500px;
+            max-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        #homepage-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+            autoplay: true;
+            loop: true;
+            object-position: center center;
+        }
+        .mute-button {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Artful Dodger Italic', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+        .mute-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
+        }
+        .intro img {
+            max-width: 40%;
+            max-height: 40%;
+            transition: opacity 1s ease-out;
+        }
+        .content {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+        .video-container::after {
+            content: "▶";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .video-container.paused::after {
+            opacity: 1;
+        }
+        .product-container {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        .categories {
+            grid-column: 1 / 2;
+        }
+        .products {
+            grid-column: 2 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            background-color: black;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .price {
+            margin-top: 5px;
+        }
+        .categories h2, .categories ul {
+            margin-top: 0;
+        }
+
+        #product-content .container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 20px;
+            padding: 120px 50px 30px 50px;
+        }
+
+        #product-content header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: start;
+            padding: 40px 50px 30px 50px;
+            z-index: 10;
+        }
+
+        #product-content nav {
+            justify-self: start;
+        }
+
+        #product-content nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #product-content nav ul li {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #product-content nav ul li a, #product-content .cart a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        #product-content nav ul li a:hover, #product-content .cart a:hover {
+            color: #4c0121;
+        }
+
+        #product-content h1 {
+            margin: 0;
+            font-size: 16px;
+            text-align: center;
+            grid-column: 2;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        #product-content .cart {
+            justify-self: end;
+        }
+
+        #product-content .categories {
+            grid-column: 1 / 2;
+            align-self: start;
+            padding-top: 20px;
+        }
+
+        #product-content .products {
+            grid-column: 2 / 3;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            justify-content: center;
+            max-width: 1125px;
+            margin: 0 auto;
+        }
+
+        #product-content .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 312px;
+        }
+
+        #product-content .product img {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            object-position: center center;
+            background-color: black;
+        }
+
+        #product-content .price {
+            margin-top: 5px;
+        }
+
+        #product-content .product h3 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        #product-content .price {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        #homepage-video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        #homepage-video::-webkit-media-controls-overlay-play-button {
+            display: none !important;
+        }
+
+        #homepage-video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+        }
+
+        #homepage-video {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .video-container {
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="intro">
+        <img src="Images/logo with farsi.png" alt="VAFAI Logo">
+    </div>
+
+    <div class="content">
+        <div id="homepage-content">
+            <div class="container">
+                <header>
+                    <nav>
+                        <ul>
+                            <li><a href="#theory">Theory</a></li>
+                            <li><a href="#archive">Archive</a></li>
+                            <li><a href="#product">Product</a></li>
+                        </ul>
+                    </nav>
+                    <h1><a href="#home" id="home-link">VAFAI</a></h1>
+                    <div class="cart">
+                        <a href="#cart">Cart</a>
+                    </div>
+                </header>
+                
+                <div class="video-wrapper">
+                    <div class="video-container">
+                        <video id="homepage-video" muted>
+                            <source src="Videos/CLIP0022.mp4" type="video/mp4">
+                            <source src="Videos/CLIP0025.mp4" type="video/mp4">
+                            <source src="Videos/CLIP0026.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button id="mute-toggle" class="mute-button">Unmute</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="product-content" style="display: none;">
+            <div class="container">
+                <header>
+                    <nav class="categories">
+                        <ul>
+                            <li><a href="#ready-to-wear">Ready-to-wear</a></li>
+                            <li><a href="#shoes">Shoes</a></li>
+                            <li><a href="#leather">Leather</a></li>
+                            <li><a href="#jewelry">Jewelry</a></li>
+                        </ul>
+                    </nav>
+                    <h1><a href="#home" id="home-link">VAFAI</a></h1>
+                    <div class="cart">
+                        <a href="#cart">Cart</a>
+                    </div>
+                </header>
+                
+                <main class="products">
+                    <div class="product">
+                        <img src="path_to_image1.jpg" alt="Double Breasted Jacket">
+                        <h3>Double Breasted Jacket</h3>
+                        <p class="price">$800</p>
+                    </div>
+                    <div class="product">
+                        <img src="path_to_image2.jpg" alt="Double Breasted Jacket">
+                        <h3>Double Breasted Jacket</h3>
+                        <p class="price">$800</p>
+                    </div>
+                    <div class="product">
+                        <img src="path_to_image3.jpg" alt="Double Breasted Jacket">
+                        <h3>Double Breasted Jacket</h3>
+                        <p class="price">$800</p>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.intro img').style.opacity = '0'; // Fade out logo
+                setTimeout(function() {
+                    document.querySelector('.intro').style.opacity = '0'; // Fade out intro background
+                    document.querySelector('.content').style.opacity = '1'; // Fade in content
+                }, 1000); // Wait for logo to fade out before fading out background
+            }, 2000); // Logo will stay for 2 seconds before fading
+
+            setTimeout(function() {
+                document.querySelector('.intro').style.display = 'none'; // Remove intro after all fades complete
+                document.querySelector('#homepage-video').play(); // Start playing the video
+            }, 4000);
+
+            const muteToggle = document.getElementById('mute-toggle');
+            const video = document.getElementById('homepage-video');
+            const videoContainer = document.querySelector('.video-container');
+            const homeLink = document.getElementById('home-link');
+
+            muteToggle.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent this click from triggering the video play/pause
+                if (video.muted) {
+                    video.muted = false;
+                    muteToggle.textContent = 'Mute';
+                } else {
+                    video.muted = true;
+                    muteToggle.textContent = 'Unmute';
+                }
+            });
+
+            videoContainer.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    videoContainer.classList.remove('paused');
+                } else {
+                    video.pause();
+                    videoContainer.classList.add('paused');
+                }
+            });
+
+            video.addEventListener('ended', function() {
+                videoContainer.classList.add('paused');
+            });
+
+            const homepageContent = document.getElementById('homepage-content');
+            const productContent = document.getElementById('product-content');
+            const productLink = document.querySelector('nav ul li a[href="#product"]');
+            const homeLinks = document.querySelectorAll('h1 a[href="#home"]');
+
+            if (productLink) {
+                productLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    homepageContent.style.display = 'none';
+                    productContent.style.display = 'block';
+                });
+            }
+
+            homeLinks.forEach(function(homeLink) {
+                homeLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    productContent.style.display = 'none';
+                    homepageContent.style.display = 'block';
+                    
+                    // Reset video if it exists
+                    const video = document.getElementById('homepage-video');
+                    if (video) {
+                        video.play();
+                    }
+                    
+                    // Scroll to top smoothly
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Optional: Change cursor on hover to indicate clickability
+            videoContainer.style.cursor = 'pointer';
+
+            // Add multiple videos and play them in sequence
+            const videoSources = [
+                'Videos/CLIP0022.mp4',
+                'Videos/CLIP0025.mp4',
+                'Videos/CLIP0026.mp4'
+            ];
+            let currentVideoIndex = 0;
+
+            function playNextVideo() {
+                currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
+                video.src = videoSources[currentVideoIndex];
+                video.load();
+                video.play().catch(e => {
+                    console.error('Error playing video:', e);
+                    // If autoplay is prevented, try playing after a short delay
+                    setTimeout(() => video.play().catch(e => console.error('Retry failed:', e)), 50);
+                });
+            }
+
+            video.addEventListener('ended', playNextVideo);
+
+            // Preload all videos
+            videoSources.forEach(src => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.href = src;
+                link.as = 'video';
+                document.head.appendChild(link);
+            });
+
+            // Start playing the first video
+            video.src = videoSources[0];
+            video.play().catch(e => console.error('Error playing initial video:', e));
+
+            // Prevent default video controls
+            video.addEventListener('loadedmetadata', function() {
+                video.controls = false;
+            });
+        });
+    </script>
+</body>
+</html>
