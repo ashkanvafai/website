@@ -7,21 +7,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         @font-face {
-            font-family: 'Artful Dodger Italic';
-            src: url('Fonts/ArtfulDodgerItalic/font.woff2') format('woff2'),
-                 url('Fonts/ArtfulDodgerItalic/font.woff') format('woff');
+            font-family: 'Granjon Std Italic';
+            src: url('Fonts/GranjonStdItalic/font.woff2') format('woff2'),
+                 url('Fonts/GranjonStdItalic/font.woff') format('woff');
             font-weight: normal;
-            font-style: normal;
+            font-style: italic;
         }
+
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Artful Dodger Italic', sans-serif;
+            font-family: 'Granjon Std Italic', serif;
+            font-style: italic;
         }
+
         .container {
             min-height: 100vh;
         }
+
         header {
             position: fixed;
             top: 0;
@@ -33,26 +37,33 @@
             padding: 40px 50px 30px 50px;
             z-index: 10;
         }
+
         nav {
             justify-self: start;
         }
+
         nav ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
+
         nav ul li {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 2px; /* Reduced from 5px to 2px */
         }
-        nav ul li a, .cart a {
+
+        nav ul li a {
             text-decoration: none;
             color: inherit;
             transition: color 0.3s ease;
+            line-height: 1.2; /* Add this to reduce space between lines */
         }
-        nav ul li a:hover, .cart a:hover {
+
+        nav ul li a:hover {
             color: #4c0121;
         }
+
         h1 {
             margin: 0;
             font-size: 16px;
@@ -62,17 +73,30 @@
             font-weight: 500;
             margin-left: -2px;
         }
+
         h1 a {
             text-decoration: none;
             color: inherit;
         }
+
         h1 a:hover {
             color: #4c0121;
         }
+
         .cart {
             justify-self: end;
             font-weight: 400;
         }
+
+        .cart a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .cart a:hover {
+            color: #4c0121; /* Match this with your hover color for consistency */
+        }
+
         .video-wrapper {
             position: fixed;
             top: 0;
@@ -84,6 +108,7 @@
             align-items: center;
             z-index: 5;
         }
+
         .video-container {
             width: 60vmin;
             height: 60vmin;
@@ -92,6 +117,7 @@
             position: relative;
             overflow: hidden;
         }
+
         #homepage-video {
             position: absolute;
             top: 0;
@@ -100,10 +126,8 @@
             height: 100%;
             object-fit: cover;
             background: #000;
-            autoplay: true;
-            loop: true;
-            object-position: center center;
         }
+
         .mute-button {
             position: absolute;
             bottom: 5px;
@@ -114,12 +138,14 @@
             padding: 3px 6px;
             cursor: pointer;
             font-size: 12px;
-            font-family: 'Artful Dodger Italic', sans-serif;
+            font-family: 'Granjon Std Italic', serif;
             transition: background-color 0.3s ease;
         }
+
         .mute-button:hover {
             background-color: rgba(0, 0, 0, 0.7);
         }
+
         .intro {
             position: fixed;
             top: 0;
@@ -133,15 +159,18 @@
             z-index: 1000;
             transition: opacity 1s ease-out;
         }
+
         .intro img {
             max-width: 40%;
             max-height: 40%;
             transition: opacity 1s ease-out;
         }
+
         .content {
             opacity: 0;
             transition: opacity 1s ease-in;
         }
+
         .video-container::after {
             content: "▶";
             position: absolute;
@@ -153,44 +182,54 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+
         .video-container.paused::after {
             opacity: 1;
         }
+
         .product-container {
             display: grid;
             grid-template-columns: 200px 1fr;
             gap: 20px;
             padding: 20px;
         }
+
         .categories {
             grid-column: 1 / 2;
         }
+
         .products {
             grid-column: 2 / -1;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
+
         .product {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .product img {
             width: 100%;
             height: auto;
             background-color: black;
         }
+
         h1, h2, h3 {
             font-weight: normal;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         .price {
             margin-top: 5px;
         }
+
         .categories h2, .categories ul {
             margin-top: 0;
         }
@@ -201,62 +240,14 @@
             grid-template-columns: 200px 1fr 200px;
             gap: 20px;
             padding: 120px 50px 30px 50px;
-        }
-
-        #product-content header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: start;
-            padding: 40px 50px 30px 50px;
-            z-index: 10;
-        }
-
-        #product-content nav {
-            justify-self: start;
-        }
-
-        #product-content nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #product-content nav ul li {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        #product-content nav ul li a, #product-content .cart a {
-            text-decoration: none;
-            color: inherit;
-            transition: color 0.3s ease;
-        }
-
-        #product-content nav ul li a:hover, #product-content .cart a:hover {
-            color: #4c0121;
-        }
-
-        #product-content h1 {
-            margin: 0;
-            font-size: 16px;
-            text-align: center;
-            grid-column: 2;
-            width: 100%;
-            font-weight: 500;
-        }
-
-        #product-content .cart {
-            justify-self: end;
+            position: relative;
         }
 
         #product-content .categories {
-            grid-column: 1 / 2;
-            align-self: start;
-            padding-top: 20px;
+            position: absolute;
+            top: 120px;
+            left: 50px;
+            width: 200px;
         }
 
         #product-content .products {
@@ -272,7 +263,7 @@
         #product-content .product {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             width: 312px;
         }
 
@@ -284,30 +275,27 @@
             background-color: black;
         }
 
-        #product-content .price {
-            margin-top: 5px;
-        }
-
         #product-content .product h3 {
-            font-size: 18px;
+            font-size: 16px;
             margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: normal;
         }
 
         #product-content .price {
             font-size: 16px;
-            margin-top: 5px;
+            margin-top: 0;
         }
 
-        #homepage-video::-webkit-media-controls {
+        #homepage-video::-webkit-media-controls,
+        #homepage-video::-webkit-media-controls-overlay-play-button,
+        #homepage-video::-webkit-media-controls-start-playback-button,
+        #homepage-video::-webkit-media-controls-play-button,
+        #homepage-video::-webkit-media-controls-panel {
             display: none !important;
-        }
-
-        #homepage-video::-webkit-media-controls-overlay-play-button {
-            display: none !important;
-        }
-
-        #homepage-video::-webkit-media-controls-start-playback-button {
-            display: none !important;
+            -webkit-appearance: none;
+            opacity: 0;
+            pointer-events: none;
         }
 
         #homepage-video {
@@ -318,6 +306,17 @@
         .video-container {
             position: relative;
             overflow: hidden;
+        }
+
+        .video-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -345,7 +344,7 @@
                 
                 <div class="video-wrapper">
                     <div class="video-container">
-                        <video id="homepage-video" muted>
+                        <video id="homepage-video" muted playsinline>
                             <source src="Videos/CLIP0022.mp4" type="video/mp4">
                             <source src="Videos/CLIP0025.mp4" type="video/mp4">
                             <source src="Videos/CLIP0026.mp4" type="video/mp4">
@@ -459,11 +458,10 @@
                     productContent.style.display = 'none';
                     homepageContent.style.display = 'block';
                     
-                    // Reset video if it exists
-                    const video = document.getElementById('homepage-video');
-                    if (video) {
-                        video.play();
-                    }
+                    // Reset to first video and play
+                    currentVideoIndex = 0;
+                    video.src = videoSources[currentVideoIndex];
+                    video.play();
                     
                     // Scroll to top smoothly
                     window.scrollTo({
@@ -476,7 +474,6 @@
             // Optional: Change cursor on hover to indicate clickability
             videoContainer.style.cursor = 'pointer';
 
-            // Add multiple videos and play them in sequence
             const videoSources = [
                 'Videos/CLIP0022.mp4',
                 'Videos/CLIP0025.mp4',
@@ -487,24 +484,10 @@
             function playNextVideo() {
                 currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
                 video.src = videoSources[currentVideoIndex];
-                video.load();
-                video.play().catch(e => {
-                    console.error('Error playing video:', e);
-                    // If autoplay is prevented, try playing after a short delay
-                    setTimeout(() => video.play().catch(e => console.error('Retry failed:', e)), 50);
-                });
+                video.play().catch(e => console.error('Error playing video:', e));
             }
 
             video.addEventListener('ended', playNextVideo);
-
-            // Preload all videos
-            videoSources.forEach(src => {
-                const link = document.createElement('link');
-                link.rel = 'preload';
-                link.href = src;
-                link.as = 'video';
-                document.head.appendChild(link);
-            });
 
             // Start playing the first video
             video.src = videoSources[0];
@@ -513,6 +496,11 @@
             // Prevent default video controls
             video.addEventListener('loadedmetadata', function() {
                 video.controls = false;
+            });
+
+            // Disable right-click on video
+            video.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
             });
         });
     </script>
