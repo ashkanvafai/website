@@ -236,11 +236,10 @@
 
         #product-content .container {
             min-height: 100vh;
-            display: grid;
-            grid-template-columns: 200px 1fr 200px;
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 120px 50px 30px 50px;
-            position: relative;
         }
 
         #product-content .categories {
@@ -251,25 +250,25 @@
         }
 
         #product-content .products {
-            grid-column: 2 / 3;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             justify-content: center;
             max-width: 1125px;
             margin: 0 auto;
+            min-height: calc(2 * (600px + 30px)); /* Adjust based on your image height and gap */
         }
 
         #product-content .product {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            width: 312px;
+            width: 400px; /* Increased from 312px */
         }
 
         #product-content .product img {
             width: 100%;
-            aspect-ratio: 2 / 3;
+            height: 600px; /* This ensures a 2:3 aspect ratio with 400px width */
             object-fit: cover;
             object-position: center center;
             background-color: black;
@@ -318,6 +317,51 @@
             background: transparent;
             pointer-events: none;
         }
+
+        #product-content .categories ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #product-content .categories ul li {
+            margin-bottom: 2px; /* Adjust as needed */
+        }
+
+        #product-content .categories ul li a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        #product-content .categories ul li a:hover {
+            color: #4c0121; /* Adjust color as needed */
+        }
+
+        #product-content header nav {
+            justify-self: start;
+        }
+
+        #product-content .categories {
+            position: absolute;
+            top: 120px;
+            left: 50px;
+            width: 200px;
+        }
+
+        #product-content header nav ul li {
+            margin-bottom: 2px;
+        }
+
+        #product-content header nav ul li a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        #product-content header nav ul li a:hover {
+            color: #4c0121;
+        }
     </style>
 </head>
 <body>
@@ -331,9 +375,9 @@
                 <header>
                     <nav>
                         <ul>
-                            <li><a href="#theory">Theory</a></li>
-                            <li><a href="#archive">Archive</a></li>
-                            <li><a href="#product">Product</a></li>
+                            <li><a href="#personal thought">Personal Thought</a></li>
+                            <li><a href="#film">Film</a></li>
+                            <li><a href="#fashion product">Fashion Product</a></li>
                         </ul>
                     </nav>
                     <h1><a href="#home" id="home-link">VAFAI</a></h1>
@@ -359,12 +403,9 @@
         <div id="product-content" style="display: none;">
             <div class="container">
                 <header>
-                    <nav class="categories">
+                    <nav>
                         <ul>
-                            <li><a href="#ready-to-wear">Ready-to-wear</a></li>
-                            <li><a href="#shoes">Shoes</a></li>
-                            <li><a href="#leather">Leather</a></li>
-                            <li><a href="#jewelry">Jewelry</a></li>
+                            <li><a href="#" id="back-button">Back</a></li>
                         </ul>
                     </nav>
                     <h1><a href="#home" id="home-link">VAFAI</a></h1>
@@ -373,6 +414,15 @@
                     </div>
                 </header>
                 
+                <nav class="categories">
+                    <ul>
+                        <li><a href="#ready-to-wear">Ready-to-wear</a></li>
+                        <li><a href="#shoes">Shoes</a></li>
+                        <li><a href="#leather">Leather</a></li>
+                        <li><a href="#jewelry">Jewelry</a></li>
+                    </ul>
+                </nav>
+                
                 <main class="products">
                     <div class="product">
                         <img src="path_to_image1.jpg" alt="Double Breasted Jacket">
@@ -380,14 +430,31 @@
                         <p class="price">$800</p>
                     </div>
                     <div class="product">
-                        <img src="path_to_image2.jpg" alt="Double Breasted Jacket">
-                        <h3>Double Breasted Jacket</h3>
-                        <p class="price">$800</p>
+                        <img src="path_to_image2.jpg" alt="Product Name">
+                        <h3>Product Name</h3>
+                        <p class="price">$Price</p>
                     </div>
                     <div class="product">
-                        <img src="path_to_image3.jpg" alt="Double Breasted Jacket">
-                        <h3>Double Breasted Jacket</h3>
-                        <p class="price">$800</p>
+                        <img src="path_to_image3.jpg" alt="Product Name">
+                        <h3>Product Name</h3>
+                        <p class="price">$Price</p>
+                    </div>
+                    
+                    <!-- New products for the second row -->
+                    <div class="product">
+                        <img src="path_to_image4.jpg" alt="Product Name">
+                        <h3>Product Name</h3>
+                        <p class="price">$Price</p>
+                    </div>
+                    <div class="product">
+                        <img src="path_to_image5.jpg" alt="Product Name">
+                        <h3>Product Name</h3>
+                        <p class="price">$Price</p>
+                    </div>
+                    <div class="product">
+                        <img src="path_to_image6.jpg" alt="Product Name">
+                        <h3>Product Name</h3>
+                        <p class="price">$Price</p>
                     </div>
                 </main>
             </div>
@@ -441,11 +508,11 @@
 
             const homepageContent = document.getElementById('homepage-content');
             const productContent = document.getElementById('product-content');
-            const productLink = document.querySelector('nav ul li a[href="#product"]');
+            const fashionProductLink = document.querySelector('nav ul li a[href="#fashion product"]');
             const homeLinks = document.querySelectorAll('h1 a[href="#home"]');
 
-            if (productLink) {
-                productLink.addEventListener('click', function(event) {
+            if (fashionProductLink) {
+                fashionProductLink.addEventListener('click', function(event) {
                     event.preventDefault();
                     homepageContent.style.display = 'none';
                     productContent.style.display = 'block';
@@ -502,6 +569,27 @@
             video.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
             });
+
+            const backButton = document.getElementById('back-button');
+
+            if (backButton) {
+                backButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    productContent.style.display = 'none';
+                    homepageContent.style.display = 'block';
+                    
+                    // Reset to first video and play
+                    currentVideoIndex = 0;
+                    video.src = videoSources[currentVideoIndex];
+                    video.play();
+                    
+                    // Scroll to top smoothly
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
         });
     </script>
 </body>
