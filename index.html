@@ -470,18 +470,18 @@
             background-color: rgba(0, 0, 0, 0.7);
         }
 
-        /* Add this new style for the personal thoughts page */
-        #personal-thought-content {
+        /* Add this new style for the essay page */
+        #essay-content {
             min-height: 100vh;
         }
 
-        #personal-thought-content .container {
+        #essay-content .container {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        #personal-thought-content header {
+        #essay-content header {
             position: fixed;
             top: 0;
             left: 0;
@@ -494,7 +494,7 @@
             background-color: white; /* Add this to ensure the header is visible */
         }
 
-        #personal-thought-content .personal-thought-wrapper {
+        #essay-content .essay-wrapper {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -503,23 +503,24 @@
             margin: 0 auto; /* Center the content horizontally */
         }
 
-        #personal-thought-content .essays-list {
+        #essay-content .essays-list {
             width: 100%;
             margin-top: -20px; /* Reduced negative margin */
         }
 
-        #personal-thought-content article {
+        #essay-content article {
             margin-bottom: 30px;
         }
 
-        #personal-thought-content article h2 {
+        #essay-content article h2 {
             font-family: 'Granjon Std Italic', serif;
             font-style: italic;
             font-size: 18px;
             margin-bottom: 10px;
+            font-weight: bold; /* Add this line to make the titles bold */
         }
 
-        #personal-thought-content article p {
+        #essay-content article p {
             font-family: 'Granjon Std Italic', serif;
             font-style: italic;
             font-size: 16px;
@@ -540,7 +541,7 @@
                 <header>
                     <nav>
                         <ul>
-                            <li><a href="#personal thought">Personal Thought</a></li>
+                            <li><a href="#essay">Essay</a></li>
                             <li><a href="#film">Film</a></li>
                             <li><a href="#fashion product">Fashion Product</a></li>
                         </ul>
@@ -657,23 +658,49 @@
             </div>
         </div>
 
-        <!-- Add this new div for the personal thoughts page content -->
-        <div id="personal-thought-content" style="display: none;">
+        <!-- Add this new div for the essay page content -->
+        <div id="essay-content" style="display: none;">
             <div class="container">
                 <header>
                     <nav>
                         <ul>
-                            <li><a href="#" id="personal-thought-back-button">Back</a></li>
+                            <li><a href="#" id="essay-back-button">Back</a></li>
                         </ul>
                     </nav>
-                    <h1><a href="#home" id="personal-thought-home-link">VAFAI</a></h1>
+                    <h1><a href="#home" id="essay-home-link">VAFAI</a></h1>
                     <div class="cart">
                         <a href="#cart">Cart</a>
                     </div>
                 </header>
                 
-                <div class="personal-thought-wrapper">
+                <div class="essay-wrapper">
                     <div class="essays-list">
+                        <article>
+                            <h2>From today's meditation, at the beginning of an extensive planning session</h2>
+                            <p>Open your hands to the sky. Or turn your palms down, to ground yourself. Since you choose to open one upwards and one downwards, open the left one: that is the receptive side...</p>
+                        </article>
+
+                        <article>
+                            <h2>Welcome to Yogilates for Nihilists</h2>
+                            <p>Please lie down on your back and try to find a somewhat comfortable or at least bearable position. You may find that the exercises become easier with time, but this will subside, of course, as your body is inevitably wearing out as the years pass...</p>
+                        </article>
+
+                        <article>
+                            <h2>Modes of Communication/Truth is the Weapon of the Underdog</h2>
+                            <p>Some thougts on the role of truth and deceptive omission in public communication</p>
+                        </article>
+
+                        <article>
+                            <h2>Waking up to a dream narrated in the voice of Douglas Coupland</h2>
+                            <p>...three racing cars rip open the shrouds of the quietness of the morning surrounding the small hovel on the hillside...</p>
+                        </article>
+
+                        <article>
+                            <h2>The plight of nerds</h2>
+                            <p>Science and IT are full of nerds, and nerds seem to have some distinct things that set them apart from other people. What makes nerds nerdy?</p>
+                        </article>
+
+                        <!-- Keep the existing articles -->
                         <article>
                             <h2>Why Twitter was right to replace stars with hearts, and why you hate it</h2>
                             <p>An analysis of Twitter's UI change and its psychological impact on users.</p>
@@ -697,11 +724,6 @@
                         <article>
                             <h2>Brief note on today's screening of "Rising Tide of Silence"</h2>
                             <p>Reflections on a post-movie discussion with fellow attendees.</p>
-                        </article>
-
-                        <article>
-                            <h2>From today's meditation, at the beginning of an extensive planning session</h2>
-                            <p>A guided meditation exercise focusing on grounding and receptivity.</p>
                         </article>
                     </div>
                 </div>
@@ -970,40 +992,40 @@
             });
         })();
 
-        // Add this new script section for the personal thoughts page functionality
+        // Add this new script section for the essay page functionality
         (function() {
-            const personalThoughtContent = document.getElementById('personal-thought-content');
-            const personalThoughtBackButton = document.getElementById('personal-thought-back-button');
-            const personalThoughtHomeLink = document.getElementById('personal-thought-home-link');
+            const essayContent = document.getElementById('essay-content');
+            const essayBackButton = document.getElementById('essay-back-button');
+            const essayHomeLink = document.getElementById('essay-home-link');
 
-            function showPersonalThoughtPage() {
+            function showEssayPage() {
                 document.getElementById('homepage-content').style.display = 'none';
                 document.getElementById('product-content').style.display = 'none';
                 document.getElementById('film-content').style.display = 'none';
-                personalThoughtContent.style.display = 'block';
+                essayContent.style.display = 'block';
             }
 
-            function hidePersonalThoughtPage() {
-                personalThoughtContent.style.display = 'none';
+            function hideEssayPage() {
+                essayContent.style.display = 'none';
                 document.getElementById('homepage-content').style.display = 'block';
             }
 
-            // Add click event to the "Personal Thought" link in the main navigation
-            document.querySelector('nav ul li a[href="#personal thought"]').addEventListener('click', function(event) {
+            // Add click event to the "Essay" link in the main navigation
+            document.querySelector('nav ul li a[href="#essay"]').addEventListener('click', function(event) {
                 event.preventDefault();
-                showPersonalThoughtPage();
+                showEssayPage();
             });
 
             // Back button functionality
-            personalThoughtBackButton.addEventListener('click', function(event) {
+            essayBackButton.addEventListener('click', function(event) {
                 event.preventDefault();
-                hidePersonalThoughtPage();
+                hideEssayPage();
             });
 
             // Home link functionality
-            personalThoughtHomeLink.addEventListener('click', function(event) {
+            essayHomeLink.addEventListener('click', function(event) {
                 event.preventDefault();
-                hidePersonalThoughtPage();
+                hideEssayPage();
             });
         })();
     </script>
