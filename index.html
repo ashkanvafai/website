@@ -244,8 +244,8 @@
         }
 
         #product-content .categories {
-            position: absolute;
-            top: 120px;
+            position: fixed;
+            top: 160px;
             left: 50px;
             width: 200px;
         }
@@ -258,6 +258,7 @@
             max-width: 1125px;
             margin: 0 auto;
             min-height: calc(2 * (600px + 30px)); /* Adjust based on your image height and gap */
+            margin-left: 250px;
         }
 
         #product-content .product {
@@ -344,8 +345,8 @@
         }
 
         #product-content .categories {
-            position: absolute;
-            top: 120px;
+            position: fixed;
+            top: 160px;
             left: 50px;
             width: 200px;
         }
@@ -418,7 +419,7 @@
 
         #film-content .video-controls {
             position: fixed;
-            bottom: 40px;
+            bottom: 170px;
             left: 0;
             right: 0;
             display: flex;
@@ -503,6 +504,18 @@
             margin: 0 auto; /* Center the content horizontally */
         }
 
+        #essay-content .essay-intro {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4c0121;
+        }
+
+        #essay-content .essay-intro p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
         #essay-content .essays-list {
             width: 100%;
             margin-top: -20px; /* Reduced negative margin */
@@ -528,6 +541,28 @@
         }
 
         /* Existing styles for header elements remain the same */
+
+        #product-content header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: start;
+            padding: 40px 50px 30px 50px;
+            z-index: 10;
+            background-color: white; /* Add white background */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow for depth */
+        }
+
+        #product-content .container {
+            padding-top: 120px; /* Add top padding to prevent content from being hidden behind the fixed header */
+        }
+
+        #product-content .categories {
+            top: 160px; /* Adjust this value to position it below the fixed header */
+        }
     </style>
 </head>
 <body>
@@ -674,6 +709,12 @@
                 </header>
                 
                 <div class="essay-wrapper">
+                    <div class="essay-intro">
+                        <p>The purpose of these essays is to stimulate thought. The ideas may turn out to be "wrong" – the analysis may miss necessary information, contain errors in logic, or be incomplete. While they are guaranteed to fall short in one way or another, they are not to designed deceive you, waste your time, or worst of all – sell you shit you don't need.</p>
+                        <p>I evolve and even radically shift my world view as I am exposed to new information and take time to process my environment. I challenge the reader to remain composed when facing ideas that may be contrary to his or her own deeply held beliefs – to rely on patience and cold detached logic rather than visceral reaction.</p>
+                        <p>Please use these essays to increase the accuracy and complexity of your world view – whether that is through calculated acceptance of a compelling idea, or careful rejection of one that fails to meet your standards of truth. Either outcome will have the effect of making you a more robust thinker.</p>
+                        <p>As a fashion designer, I am deeply preoccupied with morality and aesthetics – what goals are worth of pursuing and what are some beautiful ways of pursuing them. The topics explored below serve to inform the former whereas the garments we create attempt to answer the latter.</p>
+                    </div>
                     <div class="essays-list">
                         <article>
                             <h2>From today's meditation, at the beginning of an extensive planning session</h2>
@@ -784,6 +825,11 @@
             const homeLinks = document.querySelectorAll('h1 a[href="#home"]');
             const filmBackButton = document.getElementById('film-back-button');
 
+            // Add this function to pause the homepage video
+            function pauseHomepageVideo() {
+                video.pause();
+            }
+
             if (fashionProductLink) {
                 fashionProductLink.addEventListener('click', function(event) {
                     event.preventDefault();
@@ -798,6 +844,9 @@
                     homepageContent.style.display = 'none';
                     productContent.style.display = 'none';
                     filmContent.style.display = 'block';
+                    
+                    // Pause the homepage video
+                    pauseHomepageVideo();
                     
                     // Start playing the film video
                     const filmVideo = document.getElementById('film-video');
@@ -958,6 +1007,9 @@
                 document.getElementById('homepage-content').style.display = 'none';
                 document.getElementById('product-content').style.display = 'none';
                 filmContent.style.display = 'block';
+                
+                // Pause the homepage video
+                pauseHomepageVideo();
                 
                 // Reset to first video and play
                 currentFilmVideoIndex = 0;
